@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>client</artifactId>
+    <artifactId>ewm-stat-service</artifactId>
 
     <dependencies>
         <dependency>
