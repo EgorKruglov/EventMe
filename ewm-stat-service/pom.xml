@@ -7,23 +7,26 @@
         <groupId>ru.practicum</groupId>
         <artifactId>explore-with-me</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
+
+    <name>Stat server</name>
+    <modules>
+        <module>client</module>
+        <module>dto</module>
+        <module>server</module>
+    </modules>
 
     <artifactId>ewm-stat-service</artifactId>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>server</module>
-        <module>dto</module>
-        <module>client</module>
-    </modules>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+
 
 </project>
