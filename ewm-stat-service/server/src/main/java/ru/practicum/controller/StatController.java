@@ -33,12 +33,6 @@ public class StatController {
         return ResponseEntity.status(HttpStatus.CREATED).body(hit);
     }
 
-    @GetMapping("/hit")
-    public String hello() {
-        log.info("Получение привета");
-        return "hello";
-    }
-
     @GetMapping("/stats")
     public ResponseEntity<List<HitResponseDto>> getStat(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,

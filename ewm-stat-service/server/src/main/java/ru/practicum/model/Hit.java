@@ -21,7 +21,7 @@ public class Hit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long statId;
+    private long id;
 
     @Column(name = "app")
     private String app;
