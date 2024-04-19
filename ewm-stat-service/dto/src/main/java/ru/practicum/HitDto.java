@@ -17,15 +17,15 @@ import java.time.LocalDateTime;
 @Builder
 public class HitDto {
     @NotBlank(groups = Validator.Create.class)
-    @Size(max = 50, groups = Validator.Create.class)
+    @Size(max = 255, groups = Validator.Create.class)
     private String app;
 
     @NotBlank(groups = Validator.Create.class)
-    @Size(max = 50, groups = Validator.Create.class)
+    @Size(max = 255, groups = Validator.Create.class)
     private String uri;
 
     @NotBlank(groups = Validator.Create.class)
-    @Size(max = 15, groups = Validator.Create.class)
+    @Size(max = 255, groups = Validator.Create.class)
     private String ip;
 
     @NotNull(groups = Validator.Create.class)
