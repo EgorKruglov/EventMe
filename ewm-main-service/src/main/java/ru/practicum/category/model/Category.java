@@ -1,7 +1,9 @@
 package ru.practicum.category.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import javax.persistence.Table;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -20,6 +24,6 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cat_name")
-    private String catName;
+    @Column(name = "name")
+    private String name;
 }

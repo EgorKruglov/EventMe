@@ -1,7 +1,9 @@
 package ru.practicum.event.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.practicum.category.model.Category;
 import ru.practicum.event.status.State;
 import ru.practicum.user.model.User;
@@ -21,6 +23,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "event")
 public class Event {
@@ -32,6 +36,10 @@ public class Event {
     @Column(name = "annotation")
     private String annotation;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
@@ -40,10 +48,6 @@ public class Event {
 
     @Column(name = "event_date")
     private LocalDateTime eventDate;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "initiator_id")
@@ -64,7 +68,7 @@ public class Event {
 
     @Column(name = "state_event")
     @Enumerated(EnumType.STRING)
-    private State stateEvent;
+    private State state;
 
     @Column(name = "title")
     private String title;

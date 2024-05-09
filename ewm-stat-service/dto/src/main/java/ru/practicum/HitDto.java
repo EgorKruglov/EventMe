@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class HitDto {
+    private Long id;
+
     @NotBlank(groups = Validator.Create.class)
     @Size(max = 255, groups = Validator.Create.class)
     private String app;

@@ -4,23 +4,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 public class StatsClient extends BaseClient {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    @Value("${server.application.name:ewm-main-service}")
-    private String applicationName;
-
-    public StatsClient(@Value("${server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("${stats-service.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -29,29 +22,26 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> addHit(HttpServletRequest request) {
-        final HitDto hit = HitDto.builder()
-                .app(applicationName)
-                .uri(request.getRequestURI())
-                .ip(request.getRemoteAddr())
-                .timestamp(Timestamp.from(Instant.now()).toLocalDateTime())
-                .build();
-        return post(hit);
+    public ResponseEntity<Object> addStatEvent(HitDto stat) {
+        return post("/hit", stat);
     }
 
-    public ResponseEntity<Object> getStat(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        StringBuilder uriBuilder = new StringBuilder("/stats?start={start}&end={end}");
-        Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter)
-        );
+    public ResponseEntity<Object> readStatEvent(String start, String end, @Nullable List<String> uris, boolean unique) {
+        Map<String, Object> parameters;
+        if (uris == null) {
+            parameters = Map.of("start", encode(start),
+                    "end", encode(end),
+                    "unique", unique);
+            return get("/stats?start={start}&end={end}&unique={unique}", parameters);
+        }
+        parameters = Map.of("start", start,
+                "end", end,
+                "uris", String.join(",", uris),
+                "unique", unique);
+        return get("/stats?start={start}&end={end}&unique={unique}&uris={uris}", parameters);
+    }
 
-        if (uris != null) {
-            parameters.put("uris", String.join(",", uris));
-        }
-        if (unique) {
-            parameters.put("unique", true);
-        }
-        return get(uriBuilder.toString(), parameters);
+    private String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }
