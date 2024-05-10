@@ -20,14 +20,14 @@ import javax.validation.constraints.Size;
 public class TotalEventDto {
     private Long id;
 
-    @Size(min = 10, max = 2000, groups = Validator.Update.class)
+    @Size(min = 1, max = 2000, groups = Validator.Update.class)
     private String annotation;
 
     private CategoryDto category;
 
     private String createdOn;
 
-    @Size(min = 10, max = 5000, groups = Validator.Update.class)
+    @Size(min = 1, max = 5000, groups = Validator.Update.class)
     private String description;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
@@ -46,7 +46,7 @@ public class TotalEventDto {
 
     private State state;
 
-    @Size(min = 10, max = 255, groups = Validator.Update.class)
+    @Size(min = 1, max = 255, groups = Validator.Update.class)
     private String title;
 
     private Long views;

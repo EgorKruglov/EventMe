@@ -20,12 +20,12 @@ import java.time.LocalDateTime;
 @Builder
 public class UpdateEventDto {
 
-    @Size(min = 10, max = 5000, groups = Validator.Update.class)
+    @Size(min = 1, max = 5000, groups = Validator.Update.class)
     private String annotation;
 
     private Long category;
 
-    @Size(min = 10, max = 5000, groups = Validator.Update.class)
+    @Size(min = 1, max = 5000, groups = Validator.Update.class)
     private String description;
 
     @Future(groups = Validator.Update.class)
@@ -43,6 +43,6 @@ public class UpdateEventDto {
 
     private UserEventStatus stateAction;
 
-    @Size(min = 10, max = 255, groups = Validator.Update.class)
+    @Size(min = 1, max = 255, groups = Validator.Update.class)
     private String title;
 }

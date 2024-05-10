@@ -24,6 +24,6 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "cat_name")
     private String name;
 }

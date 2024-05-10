@@ -11,7 +11,7 @@ public class UserMapper {
     public User toUser(TotalUserDto userDto) {
         return User.builder()
                 .name(userDto.getName())
-                .email(userDto.getName())
+                .email(userDto.getEmail())
                 .build();
     }
 
