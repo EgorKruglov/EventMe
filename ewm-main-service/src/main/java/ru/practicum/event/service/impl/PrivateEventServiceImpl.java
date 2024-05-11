@@ -118,19 +118,28 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             }
         }
 
-        Optional.ofNullable(eventDto.getPaid()).ifPresent(event::setPaid);
-        Optional.ofNullable(eventDto.getRequestModeration()).ifPresent(event::setRequestModeration);
-        Optional.ofNullable(eventDto.getAnnotation()).filter(annotation -> !annotation.isBlank()).ifPresent(event::setAnnotation);
-        Optional.ofNullable(eventDto.getTitle()).filter(title -> !title.isBlank()).ifPresent(event::setTitle);
-        Optional.ofNullable(eventDto.getDescription()).filter(description -> !description.isBlank()).ifPresent(event::setDescription);
-        Optional.ofNullable(eventDto.getLocation())
-                .map(locationService::getLocation)
-                .orElseGet(() -> Optional.ofNullable(locationService.addLocation(eventDto.getLocation())))
-                .ifPresent(event::setLocation);
-        Optional.ofNullable(eventDto.getCategory())
-                .map(categoryRepository::findById)
-                .orElseThrow(() -> new NotFoundException("Категория мероприятий не найдена"))
-                .ifPresent(event::setCategory);
+        if (eventDto.getPaid() != null) {
+            event.setPaid(eventDto.getPaid());
+        }
+        if (eventDto.getRequestModeration() != null) {
+            event.setRequestModeration(eventDto.getRequestModeration());
+        }
+        if (eventDto.getAnnotation() != null && !eventDto.getAnnotation().isBlank()) {
+            event.setAnnotation(eventDto.getAnnotation());
+        }
+        if (eventDto.getTitle() != null && !eventDto.getTitle().isBlank()) {
+            event.setTitle(eventDto.getTitle());
+        }
+        if (eventDto.getDescription() != null && !eventDto.getDescription().isBlank()) {
+            event.setDescription(eventDto.getDescription());
+        }
+        if (eventDto.getLocation() != null) {
+            event.setLocation(locationService.getLocation(eventDto.getLocation()).orElse(locationService.addLocation(eventDto.getLocation())));
+        }
+        if (eventDto.getCategory() != null) {
+            event.setCategory(categoryRepository.findById(eventDto.getCategory())
+                    .orElseThrow(() -> new NotFoundException("Категория мероприятий не найдена")));
+        }
 
         Map<Long, Long> view = statsService.toView(List.of(event));
         Map<Long, Long> confirmedRequest = statsService.toConfirmedRequest(List.of(event));

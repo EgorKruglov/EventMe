@@ -42,8 +42,6 @@ public class PrivateEventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    // todo я так понимаю, чтобы начали работать эндопоинты связанные со статистикой, надо починить тесты из первой части.
-    // Они работают, но надо допилить
     @GetMapping("/{id}/events")
     public ResponseEntity<List<TotalEventDto>> getEventsByUserId(@PathVariable Long id,
                                                                  @RequestParam(defaultValue = "0") @PositiveOrZero int from,

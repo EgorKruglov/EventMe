@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @Validated
+@RequiredArgsConstructor
 @Slf4j
 public class StatController {
     private final StatService statService;

@@ -65,9 +65,10 @@ public class PublicEventServiceImpl implements PublicEventService {
             }
         }
 
-        statService.addHits(request);
+        log.info("НАЧАЛО");
         List<Event> events = eventRepository.findAllEvents(text, categories, paid, rangeStart, rangeEnd,
                 onlyAvailable, sort, PageRequest.of(from > 0 ? from / size : 0, size, Sort.by(sort).descending()));
+        log.info("КОНЕЦ");
 
         Map<Long, Long> confirmedRequest = statService.toConfirmedRequest(events);
         Map<Long, Long> view = statService.toView(events);
@@ -76,6 +77,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         events.forEach(event -> result.add(EventMapper.toDto(event, view.getOrDefault(event.getId(), 0L),
                 confirmedRequest.getOrDefault(event.getId(), 0L))));
 
+        statService.addHits(request);
         return result;
     }
 }

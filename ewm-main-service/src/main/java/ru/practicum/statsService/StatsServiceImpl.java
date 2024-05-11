@@ -50,7 +50,6 @@ public class StatsServiceImpl implements StatsService {
                 .collect(Collectors.toMap(EventConfirmedRequests::getEventId, EventConfirmedRequests::getConfirmedRequestsCount));
     }
 
-    @Transactional
     @Override
     public Map<Long, Long> toView(Collection<Event> events) {
         Map<Long, Long> view = new HashMap<>();

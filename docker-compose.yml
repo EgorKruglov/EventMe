@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=ewm
 
   statdb:
-    image: postgres:14-alpine
+    image: postgres:15-alpine
     container_name: statdb
     ports:
       - "5432:5432"
@@ -40,7 +40,7 @@ services:
       - STATS_SERVER_URL=http://server:9090
 
   main-db:
-    image: postgres:14-alpine
+    image: postgres:15
     container_name: main-db
     ports:
       - "6542:5432"
