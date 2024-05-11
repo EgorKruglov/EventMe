@@ -33,7 +33,6 @@ import ru.practicum.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -88,9 +87,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     @Override
     public TotalEventDto updateEvent(Long userId, Long eventId, UpdateEventDto eventDto) {
         log.info("Обновление данных о мероприятии");
-        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> {
-            return new NotFoundException("Мероприятие не найдено");
-        });
+        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> new NotFoundException("Мероприятие не найдено"));
 
         if (!event.getInitiator().getId().equals(userId)) {
             throw new ConflictException("Редактировать данные о мероприятии можно только его создателям");
