@@ -18,11 +18,11 @@ public class TotalUserDto {
     private Long id;
 
     @Email(groups = {Validator.Create.class})
-    @Size(min = 1, max = 255, groups = {Validator.Create.class})
+    @Size(min = 6, max = 254, groups = {Validator.Create.class})
     @NotBlank(groups = {Validator.Create.class})
     private String email;
 
     @NotBlank(groups = {Validator.Create.class})
-    @Size(min = 1, max = 255, groups = {Validator.Create.class})
+    @Size(min = 2, max = 250, groups = {Validator.Create.class})
     private String name;
 }

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS event (
     annotation VARCHAR(2000)                    NOT NULL,
     category_id BIGINT                          NOT NULL,
     created_on TIMESTAMP WITHOUT TIME ZONE      NOT NULL,
-    description VARCHAR(5000)                   NOT NULL,
+    description VARCHAR(10000)                  NOT NULL,
     event_date TIMESTAMP WITHOUT TIME ZONE      NOT NULL,
     initiator_id BIGINT                         NOT NULL,
     location_id BIGINT                          NOT NULL,
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS compilations (
 );
 
 CREATE TABLE IF NOT EXISTS compilations_events (
-    compilations_id BIGINT NOT NULL,
-    events_id       BIGINT NOT NULL,
+    compilations_id BIGINT                      NOT NULL,
+    events_id       BIGINT                      NOT NULL,
 
     CONSTRAINT pk_compilations_events PRIMARY KEY (compilations_id, events_id),
     CONSTRAINT fk_compilations FOREIGN KEY (compilations_id) REFERENCES compilations (id) ON DELETE CASCADE,

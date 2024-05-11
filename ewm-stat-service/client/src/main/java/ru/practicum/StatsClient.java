@@ -15,22 +15,23 @@ import java.util.Map;
 
 @Service
 public class StatsClient extends BaseClient {
-    public StatsClient(@Value("${STATS_SERVER_URL}") String serverUrl, RestTemplateBuilder builder) {
+    // Todo не забыть вернуть на место
+    /*public StatsClient(@Value("${STATS_SERVER_URL}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
-    }
-    /*public StatsClient(RestTemplateBuilder builder) {
+    }*/
+    public StatsClient(RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:9090"))
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
-    }*/
+    }
 
     public ResponseEntity<Object> addStatEvent(HitDto stat) {
         return post("/hit", stat);

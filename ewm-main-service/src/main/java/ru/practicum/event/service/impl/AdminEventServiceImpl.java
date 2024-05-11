@@ -78,10 +78,9 @@ public class AdminEventServiceImpl implements AdminEventService {
         Optional.ofNullable(eventDto.getParticipantLimit())
                 .ifPresent(event::setParticipantLimit);
 
-        Optional.ofNullable(eventDto.getLocation())
-                .map(locationService::getLocation)
-                .orElseGet(() -> Optional.ofNullable(locationService.addLocation(eventDto.getLocation())))
-                .ifPresent(event::setLocation);
+        if (eventDto.getLocation() != null) {
+            event.setLocation(locationService.getLocation(eventDto.getLocation()).orElse(locationService.addLocation(eventDto.getLocation())));
+        }
 
         Optional.ofNullable(eventDto.getAnnotation())
                 .filter(annotation -> !eventDto.getTitle().isBlank())
