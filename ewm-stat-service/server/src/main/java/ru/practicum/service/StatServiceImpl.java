@@ -39,18 +39,14 @@ public class StatServiceImpl implements StatService {
 
         if (uris.isEmpty()) {
             if (unique) {
-                log.info("стат1");
                 return statRepository.findAllByTimestampBetweenStartAndEndWithUniqueIp(start, end);
             } else {
-                log.info("стат2");
                 return statRepository.findAllByTimestampBetweenStartAndEndWhereIpNotUnique(start, end);
             }
         } else {
             if (unique) {
-                log.info("стат3");
                 return statRepository.findAllByTimestampBetweenStartAndEndWithUrisUniqueIp(start, end, uris);
             } else {
-                log.info("стат4");
                 return statRepository.findAllByTimestampBetweenStartAndEndWithUrisIpNotUnique(start, end, uris);
             }
         }

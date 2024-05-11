@@ -42,4 +42,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "OR (e.participantLimit > 0 )) ")
     List<Event> findAllEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
                               LocalDateTime rangeEnd, Boolean onlyAvailable, String sort, Pageable pageable);
+    // такой вариант работал (в том числе работала вся статистика)
+    /*@Query("SELECT e " +
+            "FROM Event e " +
+            "WHERE ((?1 IS null) OR ((lower(e.annotation) LIKE concat('%', lower(?1), '%')) OR (lower(e.description) LIKE concat('%', lower(?1), '%')))) " +
+            "AND (e.category.id IN ?2 OR ?2 IS null) " +
+            "AND (e.paid = ?3 OR ?3 IS null) " +
+            "AND (?4 = false OR ((?4 = true AND e.participantLimit > (SELECT count(*) FROM Request AS r WHERE e.id = r.event.id))) " +
+            "OR (e.participantLimit > 0 )) ")
+    List<Event> findAllEvents(String text, List<Long> categories, Boolean paid, Boolean onlyAvailable, String sort, Pageable pageable);*/
 }

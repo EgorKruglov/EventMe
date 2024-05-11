@@ -65,10 +65,17 @@ public class PublicEventServiceImpl implements PublicEventService {
             }
         }
 
-        log.info("НАЧАЛО");
+        if (rangeStart == null) {
+            rangeStart = LocalDateTime.MIN;
+        }
+        if (rangeEnd == null) {
+            rangeEnd = LocalDateTime.MAX;
+        }
+
         List<Event> events = eventRepository.findAllEvents(text, categories, paid, rangeStart, rangeEnd,
                 onlyAvailable, sort, PageRequest.of(from > 0 ? from / size : 0, size, Sort.by(sort).descending()));
-        log.info("КОНЕЦ");
+        /*List<Event> events = eventRepository.findAllEvents(text, categories, paid,
+                onlyAvailable, sort, PageRequest.of(from > 0 ? from / size : 0, size, Sort.by(sort).descending()));*/
 
         Map<Long, Long> confirmedRequest = statService.toConfirmedRequest(events);
         Map<Long, Long> view = statService.toView(events);
