@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.exceptions.extraExceptions.ConflictException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.model.dto.TotalUserDto;
 import ru.practicum.user.repository.UserRepository;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public TotalUserDto addUser(TotalUserDto user) {
         log.info("Добавление пользователя");
+        if (userRepository.isEmailExist(user.getEmail())) {
+            throw new ConflictException("Пользователь с таким email уже существует");
+        }
         TotalUserDto result = UserMapper.toTotalDto(userRepository.save(UserMapper.toUser(user)));
         return result;
     }

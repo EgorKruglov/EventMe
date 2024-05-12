@@ -24,6 +24,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     @Transactional
     public CategoryDto addCategory(CategoryDto categoryDto) {
         log.info("Запрос на добавление категории мероприятий");
+        if (categoryRepository.isNameExist(categoryDto.getName())) {
+            throw new ConflictException("Категория с таким именем уже существует");
+        }
         Category category = categoryRepository.save(CategoryMapper.toCategory(categoryDto));
         return CategoryMapper.toDto(category);
     }
@@ -47,6 +50,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
         log.info("Запрос на обновление категории мероприятий");
         Category category = categoryRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Категория не найдена Id:" + id));
+        if (categoryRepository.isNameExist(id, categoryDto.getName())) {
+            throw new ConflictException("Категория с таким именем уже существует");
+        }
         category.setName(categoryDto.getName());
         return CategoryMapper.toDto(category);
     }

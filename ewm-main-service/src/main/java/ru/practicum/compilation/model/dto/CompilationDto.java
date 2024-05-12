@@ -21,7 +21,7 @@ public class CompilationDto {
     private Boolean pinned;
 
     @NotBlank(groups = {Validator.Create.class, Validator.Update.class})
-    @Size(min = 1, max = 255, groups = {Validator.Create.class, Validator.Update.class})
+    @Size(min = 1, max = 50, groups = {Validator.Create.class, Validator.Update.class})
     private String title;
 
     private List<EventDto> events;

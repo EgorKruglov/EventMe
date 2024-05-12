@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class EventAdminDto {
-    @Size(min = 1, max = 5000, groups = Validator.Update.class)
+    @Size(min = 20, max = 2000, groups = Validator.Update.class)
     private String annotation;
 
     private Long category;
 
-    @Size(min = 1, max = 5000, groups = Validator.Update.class)
+    @Size(min = 20, max = 7000, groups = Validator.Update.class)
     private String description;
 
     @Future(groups = Validator.Update.class)
@@ -42,6 +42,6 @@ public class EventAdminDto {
 
     private AdminEventStatus stateAction;
 
-    @Size(min = 1, max = 255, groups = Validator.Update.class)
+    @Size(min = 3, max = 120, groups = Validator.Update.class)
     private String title;
 }

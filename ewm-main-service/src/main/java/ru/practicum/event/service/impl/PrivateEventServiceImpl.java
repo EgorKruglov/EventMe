@@ -50,6 +50,11 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     @Override
     public TotalEventDto addEvent(Long userId, PrivateEventRequestDto eventDto) {
         log.info("Добавление нового мероприятия");
+
+        if (eventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+            throw new ConflictException("Начало мероприятие не может быть раньше, чем через 2 часа");
+        }
+
         Event event = EventMapper.privatetoEvent(eventDto);
 
         event.setCategory(categoryRepository.findById(event.getCategory().getId()).orElseThrow(()
@@ -99,6 +104,9 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
         LocalDateTime eventTime = eventDto.getEventDate();
         if (eventTime != null) {
+            if (eventTime.isBefore(LocalDateTime.now().plusHours(2))) {
+                throw new ConflictException("Начало мероприятие не может быть раньше, чем через 2 часа");
+            }
             if (eventTime.isBefore(LocalDateTime.now())) {
                 throw new ValidationException("Дата мероприятия не может быть в прошлом");
             }

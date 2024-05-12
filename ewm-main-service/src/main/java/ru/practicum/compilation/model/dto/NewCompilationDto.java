@@ -17,8 +17,8 @@ import java.util.List;
 public class NewCompilationDto {
     private Boolean pinned;
 
-    @NotBlank(groups = {Validator.Create.class, Validator.Update.class})
-    @Size(min = 1, max = 255, groups = {Validator.Create.class, Validator.Update.class})
+    @NotBlank(groups = {Validator.Create.class})
+    @Size(min = 1, max = 50, groups = {Validator.Create.class, Validator.Update.class})
     private String title;
 
     private List<Long> events;

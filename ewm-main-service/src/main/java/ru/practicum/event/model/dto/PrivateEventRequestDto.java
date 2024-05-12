@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 public class PrivateEventRequestDto {
     @NotBlank
-    @Size(min = 1, max = 5000)
+    @Size(min = 20, max = 2000)
     private String annotation;
 
     @NotNull
@@ -32,7 +32,7 @@ public class PrivateEventRequestDto {
     private int participantLimit = 0;
 
     @NotBlank
-    @Size(min = 1, max = 5000)
+    @Size(min = 20, max = 7000)
     private String description;
 
     @Future
@@ -48,6 +48,6 @@ public class PrivateEventRequestDto {
     private boolean requestModeration = true;
 
     @NotBlank
-    @Size(min = 1, max = 255)
+    @Size(min = 3, max = 120)
     private String title;
 }

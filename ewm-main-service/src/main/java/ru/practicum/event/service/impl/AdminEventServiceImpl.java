@@ -56,7 +56,7 @@ public class AdminEventServiceImpl implements AdminEventService {
 
         if (eventDto.getStateAction() != null) {
             if (!event.getState().equals(State.PENDING)) {
-                throw new ValidationException("Ошибка валидации статуса мероприятия");
+                throw new ConflictException("Ошибка валидации статуса мероприятия");
             }
 
             if (eventDto.getStateAction().equals(AdminEventStatus.PUBLISH_EVENT)) {

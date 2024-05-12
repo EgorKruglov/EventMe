@@ -17,6 +17,6 @@ public class CategoryDto {
     private Long id;
 
     @NotBlank(groups = {Validator.Create.class, Validator.Update.class})
-    @Size(min = 1, max = 255, groups = {Validator.Create.class, Validator.Update.class})
+    @Size(min = 1, max = 50, groups = {Validator.Create.class, Validator.Update.class})
     private String name;
 }
