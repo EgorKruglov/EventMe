@@ -23,14 +23,6 @@ public class StatsClient extends BaseClient {
                         .build()
         );
     }
-    /*public StatsClient(RestTemplateBuilder builder) {
-        super(
-                builder
-                        .uriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:9090"))
-                        .requestFactory(HttpComponentsClientHttpRequestFactory::new)
-                        .build()
-        );
-    }*/
 
     public ResponseEntity<Object> addStatEvent(HitDto stat) {
         return post("/hit", stat);
