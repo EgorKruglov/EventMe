@@ -8,7 +8,6 @@ import ru.practicum.Validator;
 import ru.practicum.request.status.Status;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
