@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.Validator;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -17,6 +17,6 @@ public class UserDto {
     @NotNull(groups = {Validator.Create.class})
     private Long id;
 
-    @NotEmpty(groups = {Validator.Create.class})
+    @NotBlank(groups = {Validator.Create.class})
     private String name;
 }

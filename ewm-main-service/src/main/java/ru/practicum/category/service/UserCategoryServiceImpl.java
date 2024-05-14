@@ -22,7 +22,6 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    @Transactional
     public CategoryDto getCategory(Long id) {
         log.info("Запрос на получение категории мероприятий id:{}", id);
         Category category = categoryRepository.findById(id).orElseThrow(() ->
@@ -31,7 +30,6 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     }
 
     @Override
-    @Transactional
     public List<CategoryDto> getCategories(Integer from, Integer size) {
         log.info("Запрос на получение категорий мероприятий");
         List<Category> categories = categoryRepository.findAllCategories(PageRequest.of(from, size, Sort.Direction.ASC, "id"));

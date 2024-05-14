@@ -17,14 +17,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 @Slf4j
 public class AdminCompilationServiceImpl implements AdminCompilationService {
     private final CompilationRepository compilationRepository;
     private final EventRepository eventRepository;
 
     @Override
-    @Transactional
     public CompilationDto addCompilation(NewCompilationDto newCompilationDto) {
         log.info("Запрос на добавление подборки мероприятий");
         List<Event> events = new ArrayList<>();
@@ -41,14 +40,12 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
     }
 
     @Override
-    @Transactional
     public void deleteCompilation(Long id) {
         log.info("Запрос на удаление подборки мероприятий");
         compilationRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public CompilationDto updateCompilation(Long id, NewCompilationDto newCompilationDto) {
         log.info("Запрос на обновление подборки мероприятий {}", newCompilationDto);
         Compilation compilation = compilationRepository.findById(id)

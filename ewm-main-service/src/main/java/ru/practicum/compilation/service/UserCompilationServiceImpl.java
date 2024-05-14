@@ -22,7 +22,6 @@ public class UserCompilationServiceImpl implements UserCompilationService {
     private final CompilationRepository compilationRepository;
 
     @Override
-    @Transactional
     public CompilationDto getCompilation(Long id) {
         log.info("Запрос на получение подборки мероприятий");
         Compilation compilation = compilationRepository.findById(id).orElseThrow(() ->
@@ -31,7 +30,6 @@ public class UserCompilationServiceImpl implements UserCompilationService {
     }
 
     @Override
-    @Transactional
     public List<CompilationDto> getCompilations(Integer from, Integer size, Boolean pinned) {
         log.info("Запрос на получение списка подборок мероприятий");
         Pageable pageable = PageRequest.of(from, size, Sort.Direction.ASC, "id");

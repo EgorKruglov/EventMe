@@ -17,13 +17,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 @Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Transactional
     @Override
     public TotalUserDto addUser(TotalUserDto user) {
         log.info("Добавление пользователя");
@@ -34,14 +33,13 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    @Transactional
     @Override
     public void deleteUser(Long userId) {
         log.info("Удаление пользователя id:{}", userId);
         userRepository.deleteById(userId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<TotalUserDto> getUsers(List<Long> idList, int from, int size) {
         log.info("Запрос на получение списка пользователей");

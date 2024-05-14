@@ -11,13 +11,12 @@ import ru.practicum.event.service.LocationService;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Transactional
 @Slf4j
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
 
-    @Transactional
     @Override
     public Location addLocation(Location location) {
         log.info("Сохранение локации мероприятия");

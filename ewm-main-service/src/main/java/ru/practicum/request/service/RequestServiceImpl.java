@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class RequestServiceImpl implements RequestService {
@@ -29,7 +29,6 @@ public class RequestServiceImpl implements RequestService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
 
-    @Transactional
     @Override
     public RequestDto addRequest(Long userId, Long eventId) {
         log.info("Запрос на добавление запроса на мероприятие пользователем id:{}", userId);
@@ -75,7 +74,6 @@ public class RequestServiceImpl implements RequestService {
         return RequestMapper.listToDtoList(requestRepository.findAllByRequesterId(userId));
     }
 
-    @Transactional
     @Override
     public RequestDto canselRequest(Long userId, Long requestId) {
         log.info("Запрос на отмену запроса на участие в мероприятии пользователем id:{}", userId);

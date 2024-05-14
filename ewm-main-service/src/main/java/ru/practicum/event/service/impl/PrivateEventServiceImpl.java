@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Service
+@Transactional
 @Slf4j
 public class PrivateEventServiceImpl implements PrivateEventService {
     private final EventRepository eventRepository;
@@ -46,7 +46,6 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     private final UserRepository userRepository;
     private final RequestRepository requestRepository;
 
-    @Transactional
     @Override
     public TotalEventDto addEvent(Long userId, PrivateEventRequestDto eventDto) {
         log.info("Добавление нового мероприятия");
@@ -68,8 +67,8 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return EventMapper.toTotalDto(eventRepository.save(event));
     }
 
-    @Transactional
     @Override
+    @Transactional(readOnly = true)
     public List<TotalEventDto> getEventByUserId(Long userId, int from, int size) {
         log.info("Получение данных о мероприятии");
         List<Event> events = eventRepository.findAllByInitiatorId(userId, PageRequest.of(from, size, Sort.Direction.ASC, "id"));
@@ -88,7 +87,6 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return EventMapper.eventListToTotalDtoList(events);
     }
 
-    @Transactional
     @Override
     public TotalEventDto updateEvent(Long userId, Long eventId, UpdateEventDto eventDto) {
         log.info("Обновление данных о мероприятии");
@@ -154,7 +152,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return EventMapper.toTotalDto(event);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public TotalEventDto getEventByUserIdAndEventId(Long userId, Long eventId) {
         log.info("обновление данных мероприятия");
@@ -169,7 +167,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return EventMapper.toTotalDto(event);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<RequestDto> getRequestByUserIdAndEventId(Long userId, Long eventId) {
         log.info("Получение списка запросов на мероприятие пользователя");
@@ -180,7 +178,6 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return RequestMapper.listToDtoList(requests);
     }
 
-    @Transactional
     @Override
     public RequestUpdateDto updateRequestByOwner(Long userId, Long eventId, RequestShortDto requestShortDto) {
         log.info("Обновление списка запросов на мероприятие пользователя");

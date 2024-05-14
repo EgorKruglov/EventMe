@@ -13,7 +13,7 @@ import ru.practicum.exceptions.extraExceptions.NotFoundException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 @Slf4j
 public class AdminCategoryServiceImpl implements AdminCategoryService {
     private final CategoryRepository categoryRepository;
@@ -21,7 +21,6 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     private final EventRepository eventRepository;
 
     @Override
-    @Transactional
     public CategoryDto addCategory(CategoryDto categoryDto) {
         log.info("Запрос на добавление категории мероприятий");
         if (categoryRepository.isNameExist(categoryDto.getName())) {
@@ -32,7 +31,6 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
-    @Transactional
     public void deleteCategory(Long id) {
         log.info("Запрос на удаление категории мероприятий");
         if (!categoryRepository.existsById(id)) {
@@ -45,7 +43,6 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
-    @Transactional
     public CategoryDto updateCategory(Long id, CategoryDto categoryDto) {
         log.info("Запрос на обновление категории мероприятий");
         Category category = categoryRepository.findById(id).orElseThrow(() ->

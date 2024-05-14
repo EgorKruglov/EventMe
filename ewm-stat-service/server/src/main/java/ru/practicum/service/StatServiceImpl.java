@@ -16,12 +16,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 @Service
 public class StatServiceImpl implements StatService {
     private final StatRepository statRepository;
 
     @Override
-    @Transactional
     public HitDto createHit(HitDto hitDto) {
         log.info("Сохранение статистики о запросе");
         Hit hit = statRepository.save(HitDtoMapper.toHit(hitDto));

@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.practicum.Validator;
 import ru.practicum.request.status.Status;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -13,6 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestShortDto {
+    @NotEmpty(groups = {Validator.Update.class})
     private List<Long> requestIds;
+
+    @NotBlank(groups = {Validator.Update.class})
     private Status status;
 }

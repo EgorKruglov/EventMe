@@ -32,7 +32,6 @@ public class PublicEventServiceImpl implements PublicEventService {
     private final StatsService statService;
 
     @Override
-    @Transactional
     public TotalEventDto findEvent(Long id, HttpServletRequest request) {
         log.info("Запрос на получение информации о событии id:{}", id);
         Event event = eventRepository.findById(id).orElseThrow(() ->
@@ -52,7 +51,6 @@ public class PublicEventServiceImpl implements PublicEventService {
     }
 
     @Override
-    @Transactional
     public List<EventDto> findEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
                                      LocalDateTime rangeEnd, Boolean onlyAvailable, String sort, Integer from, Integer size,
                                      HttpServletRequest request) {

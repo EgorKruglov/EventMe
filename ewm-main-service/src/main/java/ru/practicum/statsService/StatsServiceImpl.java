@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -41,7 +41,7 @@ public class StatsServiceImpl implements StatsService {
     @Value("${server.application.name:ewm-service}")
     private String app;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public Map<Long, Long> toConfirmedRequest(Collection<Event> list) {
         List<Long> listEventId = list.stream().map(Event::getId).collect(Collectors.toList());
@@ -50,6 +50,7 @@ public class StatsServiceImpl implements StatsService {
                 .collect(Collectors.toMap(EventConfirmedRequests::getEventId, EventConfirmedRequests::getConfirmedRequestsCount));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Map<Long, Long> toView(Collection<Event> events) {
         Map<Long, Long> view = new HashMap<>();
@@ -80,7 +81,6 @@ public class StatsServiceImpl implements StatsService {
         return view;
     }
 
-    @Transactional
     @Override
     public void addHits(HttpServletRequest request) {
         statsClient.addStatEvent(HitDto.builder()

@@ -22,6 +22,7 @@ import ru.practicum.request.model.dto.RequestDto;
 import ru.practicum.request.model.dto.RequestShortDto;
 import ru.practicum.request.model.dto.RequestUpdateDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -36,7 +37,7 @@ public class PrivateEventController {
 
     @PostMapping("/{id}/events")
     public ResponseEntity<TotalEventDto> addEvent(@PathVariable Long id,
-                                                  @RequestBody @Validated PrivateEventRequestDto eventDto) {
+                                                  @RequestBody @Valid PrivateEventRequestDto eventDto) {
         TotalEventDto result = eventService.addEvent(id, eventDto);
         log.info("Создано мероприятие {}", result);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);

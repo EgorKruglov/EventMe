@@ -27,15 +27,14 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @Slf4j
-@Transactional(readOnly = true)
 public class AdminEventServiceImpl implements AdminEventService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final LocationService locationService;
     private final StatsService statsService;
 
-    @Transactional
     @Override
     public TotalEventDto updateEventByAdmin(Long eventId, EventAdminDto eventDto) {
         log.info("Обновление мероприятия администратором");
@@ -102,7 +101,7 @@ public class AdminEventServiceImpl implements AdminEventService {
         return EventMapper.toTotalDto(event);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<TotalEventDto> getEventsByAdmin(List<Long> users, List<State> states, List<Long> categories, LocalDateTime start, LocalDateTime end, int from, int size) {
         log.info("Получение списка о мероприятии");
