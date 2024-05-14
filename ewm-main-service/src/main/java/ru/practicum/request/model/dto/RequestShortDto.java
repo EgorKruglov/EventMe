@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestShortDto {
-    @NotEmpty(groups = {Validator.Update.class})
     private List<Long> requestIds;
 
     @NotBlank(groups = {Validator.Update.class})
