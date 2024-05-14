@@ -72,7 +72,7 @@ public class PrivateEventController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public ResponseEntity<RequestUpdateDto> updateRequestByOwner(@PathVariable Long userId,
                                                                  @PathVariable Long eventId,
-                                                                 @RequestBody RequestShortDto requestDto) {
+                                                                 @RequestBody @Validated(Validator.Update.class) RequestShortDto requestDto) {
         RequestUpdateDto result = eventService.updateRequestByOwner(userId, eventId, requestDto);
         log.info("Обновлены данные о запросе на мероприятие id:{}", eventId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
