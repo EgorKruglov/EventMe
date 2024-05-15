@@ -17,6 +17,7 @@ public class HitDtoMapper {
     public HitDto toHitDto(Hit hit) {
         return HitDto.builder()
                 .timestamp(hit.getTimestamp())
+                .id(hit.getId())
                 .app(hit.getApp())
                 .uri(hit.getUri())
                 .ip(hit.getIp())
