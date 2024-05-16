@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.comment.repository.CommentRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.dto.EventDto;
 import ru.practicum.event.model.dto.TotalEventDto;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class PublicEventServiceImpl implements PublicEventService {
     private final EventRepository eventRepository;
     private final StatsService statService;
+    private final CommentRepository commentRepository;
 
     @Override
     public TotalEventDto findEvent(Long id, HttpServletRequest request) {

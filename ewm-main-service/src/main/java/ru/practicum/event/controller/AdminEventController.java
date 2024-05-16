@@ -46,9 +46,9 @@ public class AdminEventController {
                                                                 @RequestParam(required = false) List<State> states,
                                                                 @RequestParam(required = false) List<Long> categories,
                                                                 @RequestParam(required = false)
-                                                                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
+                                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                                                 @RequestParam(required = false)
-                                                                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
+                                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
                                                                 @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                                 @RequestParam(defaultValue = "10") @Positive int size) {
         List<TotalEventDto> result = eventService.getEventsByAdmin(users, states, categories, start, end, from, size);
