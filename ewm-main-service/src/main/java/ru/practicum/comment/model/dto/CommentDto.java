@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentDto {
-    @NotBlank
+    @NotBlank(groups = {Validator.Create.class, Validator.Update.class})
     @Size(min = 2, max = 2000, groups = {Validator.Create.class, Validator.Update.class})
     private String text;
 }

@@ -38,5 +38,5 @@ public class EventDto {
 
     private Long views;
 
-
+    private Long comments;
 }

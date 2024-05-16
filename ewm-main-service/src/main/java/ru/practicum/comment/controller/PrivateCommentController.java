@@ -33,7 +33,7 @@ public class PrivateCommentController {
     @PostMapping("/users/{userId}/events/{eventId}")
     public ResponseEntity<TotalCommentDto> addComment(@PathVariable Long userId,
                                                       @PathVariable Long eventId,
-                                                      @Valid @RequestBody CommentDto commentDto) {
+                                                      @RequestBody @Validated(Validator.Create.class) CommentDto commentDto) {
         TotalCommentDto result = commentService.addComment(userId, eventId, commentDto);
         log.info("Пользователь id:{} добавил комментарий {}", userId, result);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -50,7 +50,7 @@ public class PrivateCommentController {
     @PatchMapping("/users/{userId}/{commentId}")
     public ResponseEntity<TotalCommentDto> updateComment(@PathVariable Long userId,
                                                          @PathVariable Long commentId,
-                                                         @RequestBody @Validated(Validator.Update.class) CommentDto commentDto) {
+                                                         @RequestBody @Validated({Validator.Update.class}) CommentDto commentDto) {
         TotalCommentDto result = commentService.updateComment(userId, commentId, commentDto);
         log.info("Обновлён комментарий id:{}", commentId);
         return ResponseEntity.ok().body(result);
