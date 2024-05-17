@@ -19,7 +19,6 @@ import ru.practicum.comment.model.dto.CommentDto;
 import ru.practicum.comment.model.dto.TotalCommentDto;
 import ru.practicum.comment.service.PrivateCommentService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

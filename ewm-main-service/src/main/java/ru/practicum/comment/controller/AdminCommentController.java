@@ -16,7 +16,6 @@ import ru.practicum.comment.model.dto.CommentDto;
 import ru.practicum.comment.model.dto.TotalCommentDto;
 import ru.practicum.comment.service.AdminCommentService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
