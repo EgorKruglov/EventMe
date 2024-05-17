@@ -85,7 +85,6 @@ public class PublicEventServiceImpl implements PublicEventService {
             eventIds.add(eventDto.getId());
         }
         List<EventCommentsCount> commentsCountsList = commentRepository.countCommentByEvent(eventIds);
-        log.warn("{}", commentsCountsList);
         for (EventCommentsCount eventCommentsCount : commentsCountsList) {
             for (EventDto eventDto : result) {
                 if (Objects.equals(eventCommentsCount.getEventId(), eventDto.getId())) {
