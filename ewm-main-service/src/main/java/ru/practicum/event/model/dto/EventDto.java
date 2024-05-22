@@ -37,4 +37,6 @@ public class EventDto {
     private String title;
 
     private Long views;
+
+    private Long comments;
 }

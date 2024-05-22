@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.comment.model.dto.EventCommentsCount;
+import ru.practicum.comment.repository.CommentRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.dto.EventDto;
 import ru.practicum.event.model.dto.TotalEventDto;
@@ -22,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ import java.util.Map;
 public class PublicEventServiceImpl implements PublicEventService {
     private final EventRepository eventRepository;
     private final StatsService statService;
+    private final CommentRepository commentRepository;
 
     @Override
     public TotalEventDto findEvent(Long id, HttpServletRequest request) {
@@ -74,6 +78,20 @@ public class PublicEventServiceImpl implements PublicEventService {
                 confirmedRequest.getOrDefault(event.getId(), 0L))));
 
         statService.addHits(request);
+
+        //Добавление данных о количестве комментариев в каждом мероприятии
+        List<Long> eventIds = new ArrayList<>();
+        for (EventDto eventDto : result) {
+            eventIds.add(eventDto.getId());
+        }
+        List<EventCommentsCount> commentsCountsList = commentRepository.countCommentByEvent(eventIds);
+        for (EventCommentsCount eventCommentsCount : commentsCountsList) {
+            for (EventDto eventDto : result) {
+                if (Objects.equals(eventCommentsCount.getEventId(), eventDto.getId())) {
+                    eventDto.setComments(eventCommentsCount.getCommentsCount());
+                }
+            }
+        }
         return result;
     }
 }
